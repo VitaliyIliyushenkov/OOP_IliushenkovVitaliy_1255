@@ -14,7 +14,7 @@ namespace CalculateIron
         public int Numerator 
         {
             get { return numerator; }
-            set { numerator = value+1; } 
+            set { numerator = value; } 
         }
         public int Denominator
         { 
