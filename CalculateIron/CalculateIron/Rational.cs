@@ -14,7 +14,7 @@ namespace CalculateIron
         public int Numerator 
         {
             get { return numerator; }
-            set { numerator = value; } 
+            set { numerator = value+1; } 
         }
         public int Denominator
         { 
@@ -24,7 +24,7 @@ namespace CalculateIron
         }
         public Rational(int n, int d)
         {
-            this.numerator = n; Denominator = d; 
+            Numerator = n; Denominator = d; 
         }
         public Rational Euclids()
         {
