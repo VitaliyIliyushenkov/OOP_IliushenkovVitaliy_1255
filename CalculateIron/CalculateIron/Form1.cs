@@ -12,133 +12,65 @@ namespace CalculateIron
 {
     public partial class Form1 : Form
     {
-        int[] result = new int[2];
-        int del;
         public Form1()
         {
             InitializeComponent();
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox2.Text == "0")
-                textBox2.Text = "Error";
-            else if (textBox4.Text == "0")
-                textBox4.Text = "Error";
-            else
-            {
-                result[0] = Convert.ToInt32(textBox1.Text) * Convert.ToInt32(textBox4.Text)
-                                + Convert.ToInt32(textBox3.Text) * Convert.ToInt32(textBox2.Text);
-                result[1] = Convert.ToInt32(textBox2.Text) * Convert.ToInt32(textBox4.Text);
-                do
-                {
-                    del = Euclids_algorithm(result[0], result[1]);
-                    result[0] /= del;
-                    result[1] /= del;
-                }
-                while (del != 1);
-                numerator.Text = result[0].ToString();
-                denominator.Text = result[1].ToString();
-            }
+            Rational r1 = new Rational(Convert.ToInt32(textBox1.Text),
+                Convert.ToInt32(textBox2.Text));
+            Rational r2 = new Rational(Convert.ToInt32(textBox3.Text),
+                Convert.ToInt32(textBox4.Text));
+
+            Rational result = r1.Plus(r2);
+            result = result.Euclids();
+
+            numerator.Text = result.ToString().Split('/')[0];
+            denominator.Text = result.ToString().Split('/')[1];
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox2.Text == "0")
-                textBox2.Text = "Error";
-            else if (textBox4.Text == "0")
-                textBox4.Text = "Error";
-            else
-            {
-                result[0] = Convert.ToInt32(textBox1.Text) * Convert.ToInt32(textBox4.Text)
-                                    - Convert.ToInt32(textBox3.Text) * Convert.ToInt32(textBox2.Text);
-                result[1] = Convert.ToInt32(textBox2.Text) * Convert.ToInt32(textBox4.Text);
-                do
-                {
-                    del = Euclids_algorithm(result[0], result[1]);
-                    result[0] /= del;
-                    result[1] /= del;
-                }
-                while (del != 1);
-                numerator.Text = result[0].ToString();
-                denominator.Text = result[1].ToString();
-            }
+            Rational r1 = new Rational(Convert.ToInt32(textBox1.Text),
+                            Convert.ToInt32(textBox2.Text));
+            Rational r2 = new Rational(Convert.ToInt32(textBox3.Text),
+                Convert.ToInt32(textBox4.Text));
+
+            Rational result = r1.Minus(r2);
+            result = result.Euclids();
+
+            numerator.Text = result.ToString().Split('/')[0];
+            denominator.Text = result.ToString().Split('/')[1];
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (textBox2.Text == "0")
-                textBox2.Text = "Error";
-            else if (textBox4.Text == "0")
-                textBox4.Text = "Error";
-            else
-            {
-                result[0] = Convert.ToInt32(textBox1.Text) * Convert.ToInt32(textBox3.Text);
-                result[1] = Convert.ToInt32(textBox2.Text) * Convert.ToInt32(textBox4.Text);
-                do
-                {
-                    del = Euclids_algorithm(result[0], result[1]);
-                    result[0] /= del;
-                    result[1] /= del;
-                }
-                while (del != 1);
-                numerator.Text = result[0].ToString();
-                denominator.Text = result[1].ToString();
-            }
+            Rational r1 = new Rational(Convert.ToInt32(textBox1.Text),
+                            Convert.ToInt32(textBox2.Text));
+            Rational r2 = new Rational(Convert.ToInt32(textBox3.Text),
+                Convert.ToInt32(textBox4.Text));
+
+            Rational result = r1.Multiply(r2);
+            result = result.Euclids();
+
+            numerator.Text = result.ToString().Split('/')[0];
+            denominator.Text = result.ToString().Split('/')[1];
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            if (textBox2.Text == "0")
-                textBox2.Text = "Error";
-            else if (textBox4.Text == "0")
-                textBox4.Text = "Error";
-            else
-            {
-                result[0] = Convert.ToInt32(textBox1.Text) * Convert.ToInt32(textBox4.Text);
-                result[1] = Convert.ToInt32(textBox2.Text) * Convert.ToInt32(textBox3.Text);
-                do
-                {
-                    del = Euclids_algorithm(result[0], result[1]);
-                    result[0] /= del;
-                    result[1] /= del;
-                }
-                while (del != 1);
-                numerator.Text = result[0].ToString();
-                denominator.Text = result[1].ToString();
-            }
-        }
-        static int Euclids_algorithm(int numerator, int denominator)
-        {
-            int max;
-            int min;
-            int ost;
+            Rational r1 = new Rational(Convert.ToInt32(textBox1.Text),
+                            Convert.ToInt32(textBox2.Text));
+            Rational r2 = new Rational(Convert.ToInt32(textBox3.Text),
+                Convert.ToInt32(textBox4.Text));
 
-            if (numerator > denominator)
-            {
-                max = numerator; min = denominator;
-            }
-            else
-            {
-                max = denominator; min = numerator;
+            Rational result = r1.Division(r2);
+            result = result.Euclids();
 
-            }
-
-            if (max % min == 0)
-            {
-                ost = min;
-            }
-            else
-            {
-                ost = max % min;
-                int ost2 = min % ost;
-                while (ost2 != 0)
-                {
-                    int p = ost;
-                    ost = ost2;
-                    ost2 = p % ost2;
-                }
-            }
-            return ost;
+            numerator.Text = result.ToString().Split('/')[0];
+            denominator.Text = result.ToString().Split('/')[1];
         }
     }
 }
