@@ -31,9 +31,11 @@
             this.colorDialogFill = new System.Windows.Forms.ColorDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.donwload_button = new System.Windows.Forms.Button();
+            this.save_btn = new System.Windows.Forms.Button();
+            this.Clear_btn = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.colorPen_btn = new System.Windows.Forms.Button();
-            this.Clear_btn = new System.Windows.Forms.Button();
             this.ellipse_btn = new System.Windows.Forms.Button();
             this.triangle_btn = new System.Windows.Forms.Button();
             this.Rectangle_btn = new System.Windows.Forms.Button();
@@ -42,6 +44,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.colorDialogPen = new System.Windows.Forms.ColorDialog();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -59,17 +62,49 @@
             // panel2
             // 
             this.panel2.BackgroundImage = global::graphic_editor.Properties.Resources._1674963165_top_fon_com_p_fon_dlya_prezentatsii_fakturnii_122;
+            this.panel2.Controls.Add(this.donwload_button);
+            this.panel2.Controls.Add(this.save_btn);
+            this.panel2.Controls.Add(this.Clear_btn);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(800, 50);
             this.panel2.TabIndex = 3;
             // 
+            // donwload_button
+            // 
+            this.donwload_button.Location = new System.Drawing.Point(118, 8);
+            this.donwload_button.Name = "donwload_button";
+            this.donwload_button.Size = new System.Drawing.Size(100, 30);
+            this.donwload_button.TabIndex = 7;
+            this.donwload_button.Text = "Загрузить";
+            this.donwload_button.UseVisualStyleBackColor = true;
+            this.donwload_button.Click += new System.EventHandler(this.donwload_button_Click);
+            // 
+            // save_btn
+            // 
+            this.save_btn.Location = new System.Drawing.Point(12, 8);
+            this.save_btn.Name = "save_btn";
+            this.save_btn.Size = new System.Drawing.Size(100, 30);
+            this.save_btn.TabIndex = 6;
+            this.save_btn.Text = "Сохранить";
+            this.save_btn.UseVisualStyleBackColor = true;
+            this.save_btn.Click += new System.EventHandler(this.save_btn_Click);
+            // 
+            // Clear_btn
+            // 
+            this.Clear_btn.Location = new System.Drawing.Point(688, 8);
+            this.Clear_btn.Name = "Clear_btn";
+            this.Clear_btn.Size = new System.Drawing.Size(100, 30);
+            this.Clear_btn.TabIndex = 5;
+            this.Clear_btn.Text = "Очистить";
+            this.Clear_btn.UseVisualStyleBackColor = true;
+            this.Clear_btn.Click += new System.EventHandler(this.Clear_btn_Click);
+            // 
             // panel3
             // 
             this.panel3.BackgroundImage = global::graphic_editor.Properties.Resources._1674963165_top_fon_com_p_fon_dlya_prezentatsii_fakturnii_122;
             this.panel3.Controls.Add(this.colorPen_btn);
-            this.panel3.Controls.Add(this.Clear_btn);
             this.panel3.Controls.Add(this.ellipse_btn);
             this.panel3.Controls.Add(this.triangle_btn);
             this.panel3.Controls.Add(this.Rectangle_btn);
@@ -89,16 +124,6 @@
             this.colorPen_btn.TabIndex = 6;
             this.colorPen_btn.UseVisualStyleBackColor = true;
             this.colorPen_btn.Click += new System.EventHandler(this.ColorPen_btn_Click);
-            // 
-            // Clear_btn
-            // 
-            this.Clear_btn.Location = new System.Drawing.Point(688, 10);
-            this.Clear_btn.Name = "Clear_btn";
-            this.Clear_btn.Size = new System.Drawing.Size(100, 30);
-            this.Clear_btn.TabIndex = 5;
-            this.Clear_btn.Text = "Очистить";
-            this.Clear_btn.UseVisualStyleBackColor = true;
-            this.Clear_btn.Click += new System.EventHandler(this.Clear_btn_Click);
             // 
             // ellipse_btn
             // 
@@ -159,7 +184,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(800, 355);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint_1);
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseDown);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseUp);
@@ -175,6 +200,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
@@ -197,6 +223,8 @@
         private System.Windows.Forms.Button Clear_btn;
         private System.Windows.Forms.Button colorPen_btn;
         private System.Windows.Forms.ColorDialog colorDialogPen;
+        private System.Windows.Forms.Button donwload_button;
+        private System.Windows.Forms.Button save_btn;
     }
 }
 

@@ -10,13 +10,13 @@ namespace graphic_editor
 {
     internal class Ellipse : Figure
     {
-        public Ellipse(int x, int y, int width, int height, Pen pen, Color fillColor)
-            : base(x, y, width, height, pen, fillColor)
-        { this.x = x; this.y = y; this.width = width; this.height = height; this.pen = pen; this.fillColor = fillColor; }
+        public Ellipse(int type_figure, int x, int y, int width, int height, string color_pen, float size_pen, string fillColor)
+            : base(type_figure, x, y, width, height, color_pen, size_pen, fillColor)
+        { this.type_figure = type_figure; this.x = x; this.y = y; this.width = width; this.height = height; this.color_pen = color_pen; this.size_pen = size_pen; this.fillColor = fillColor; }
         public override void Draw(Graphics gr)
         {
-            gr.DrawEllipse(pen, x, y, width, height);
-            gr.FillEllipse(new SolidBrush(fillColor), x, y, width, height);
+            gr.DrawEllipse(new Pen(Color.FromName(color_pen), size_pen), x, y, width, height);
+            gr.FillEllipse(new SolidBrush(Color.FromName(fillColor)), x, y, width, height);
         }
     }
 }
