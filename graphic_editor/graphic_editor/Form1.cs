@@ -33,13 +33,11 @@ namespace graphic_editor
         bool isMouseDown, isMouseMove = false;
 
         bool isCursor = true;
-        bool isCasting, isCorrecting = false;
-
-        List<bool> Resize_Point = new List<bool>() { false, false, false, false};
+        bool isCorrecting = false;
+        bool isCastingBorder, isCastingFill = false;
         bool isResize = false;
 
         int temp_x, temp_y, x, y, width, height;
-        int f_x_select, f_y_select, f_w_select, f_h_select;
         int figureType;
         int selected_index;
 
@@ -67,11 +65,11 @@ namespace graphic_editor
         }
 
         public void Rectangle_btn_Click(object sender, EventArgs e)
-        { figureType = 1; isCursor = false; isCasting = false; isCorrecting = false; }
+        { figureType = 1; isCursor = false; isCastingBorder = false; isCastingFill = false; isCorrecting = false; }
         private void Triangle_btn_Click(object sender, EventArgs e)
-        { figureType = 2; isCursor = false; isCasting = false; isCorrecting = false; }
+        { figureType = 2; isCursor = false; isCastingBorder = false; isCastingFill = false; isCorrecting = false; }
         private void Ellipse_btn_Click(object sender, EventArgs e)
-        { figureType = 3; isCursor = false; isCasting = false; isCorrecting = false; }
+        { figureType = 3; isCursor = false; isCastingBorder = false; isCastingFill = false; isCorrecting = false; }
 
         private void save_btn_Click(object sender, EventArgs e)
         {
@@ -120,7 +118,7 @@ namespace graphic_editor
                         break;
                 }
                 Update_Screen();
-                pictureBox1.Enabled = false;
+                //pictureBox1.Enabled = false;
             }
         }
 
@@ -132,49 +130,12 @@ namespace graphic_editor
             y = e.Y;
 
             isResize = false;
-            for (int r_p = 0; r_p < Resize_Point.Count; r_p++)
-            {
-                Resize_Point[r_p] = false;
-            }
 
             Update_Screen();
 
             if (isCursor && isCorrecting) //Выбор точки маштабирования
-            { 
-                if (figures[selected_index].x-5 <= e.X && e.X <= figures[selected_index].x+5)
-                {
-                    isResize = true;
-                    if (figures[selected_index].y-5 <= e.Y && e.Y <= figures[selected_index].y+5)
-                    {
-                        Resize_Point[0] = true;
-                    }
-                    if (figures[selected_index].y + figures[selected_index].height -5 <= e.Y
-                                        && e.Y <= figures[selected_index].y + figures[selected_index].height+5)
-                    {
-                        Resize_Point[3] = true;
-                    }
-                }
-                if (figures[selected_index].x+ figures[selected_index].width-5 <= e.X
-                                        && e.X <= figures[selected_index].x + figures[selected_index].width+5)
-                {
-                    isResize = true;
-                    if (figures[selected_index].y-5 <= e.Y && e.Y <= figures[selected_index].y+5)
-                    {
-                        Resize_Point[1] = true;
-                    }
-                    if (figures[selected_index].y + figures[selected_index].height-5 <= e.Y
-                                        && e.Y <= figures[selected_index].y + figures[selected_index].height+5)
-                    {
-                        Resize_Point[2] = true;
-                    }
-                }
-            }
-            if (isCorrecting)
             {
-                f_x_select = figures[selected_index].x;
-                f_y_select = figures[selected_index].y;
-                f_w_select = figures[selected_index].width;
-                f_h_select = figures[selected_index].height;
+                isResize = figures[selected_index].is_point_correcting(e.X, e.Y);
             }
         }
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -182,38 +143,14 @@ namespace graphic_editor
             if (isCorrecting && isCursor && isMouseDown && !isResize) //Переместить фигуру
             {
                 isMouseMove = true;
-                figures[selected_index].x = e.X + f_x_select - x;
-                figures[selected_index].y = e.Y + f_y_select - y;
+                figures[selected_index].Relocation(e.X, e.Y, x, y);
 
                 Update_Screen();
             }
             if (isCorrecting && isCursor && isMouseDown && isResize) //Поменять размер
             {
                 isMouseMove = true;
-                if (Resize_Point[0])
-                {
-                    figures[selected_index].x = e.X;
-                    figures[selected_index].y = e.Y;
-                    figures[selected_index].width = f_w_select + (x - e.X);
-                    figures[selected_index].height = (y - e.Y) + f_h_select;
-                }
-                if (Resize_Point[1])
-                {
-                    figures[selected_index].y = e.Y;
-                    figures[selected_index].width = f_w_select + (e.X - x);
-                    figures[selected_index].height = f_h_select + (y - e.Y);
-                }
-                if (Resize_Point[2])
-                {
-                    figures[selected_index].width = e.X - figures[selected_index].x;
-                    figures[selected_index].height = e.Y - figures[selected_index].y;
-                }
-                if (Resize_Point[3])
-                {
-                    figures[selected_index].x = e.X;
-                    figures[selected_index].width = f_w_select + (x - e.X);
-                    figures[selected_index].height = f_h_select + (e.Y - y);
-                }
+                figures[selected_index].Resize(e.X, e.Y, x, y);
 
                 Update_Screen();
             }
@@ -253,7 +190,7 @@ namespace graphic_editor
 
         private void PictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (isMouseMove) // Добавить фигуру
+            if (isMouseMove && !isCursor) // Добавить фигуру
             {
                 figures.Add(f);
             }
@@ -279,29 +216,20 @@ namespace graphic_editor
                 }
                 if (!flag) {isCorrecting = false;}
             }
-            
+
             if (isCorrecting)
             {
-                if (isCasting) // Добавить стиль
+                if (isCastingFill) // Добавить стиль
                 {
-                    //figures[selected_index].pen = pen;
-                    figures[selected_index].fillColor = colorDialogFill.Color.Name;
+                    figures[selected_index].SetFill(colorFill_btn.BackColor.Name);
                     Update_Screen();
                 }
-
-                // Добавить точки маштабирования выбранной фигуры
-                Point R1 = new Point(figures[selected_index].x, figures[selected_index].y);
-                Point R2 = new Point(figures[selected_index].x + figures[selected_index].width, figures[selected_index].y);
-                Point R3 = new Point(figures[selected_index].x + figures[selected_index].width, figures[selected_index].y + figures[selected_index].height);
-                Point R4 = new Point(figures[selected_index].x, figures[selected_index].y + figures[selected_index].height);
-
-                Point[] pointR = { R1, R2, R3, R4 };
-                Pen penR = new Pen(Color.Red, 10);
-
-                foreach (Point r in pointR)
+                if (isCastingBorder)
                 {
-                    gr.DrawEllipse(penR, r.X, r.Y, 1, 1);
+                    figures[selected_index].SetBorder(colorPen_btn.BackColor.Name, trackBar1.Value);
+                    Update_Screen();
                 }
+                figures[selected_index].Draw_point(gr);
             }
             
             isMouseDown = false;
@@ -317,7 +245,7 @@ namespace graphic_editor
 
         private void Color_btn_Click(object sender, EventArgs e) //Заливка
         {
-            isCasting = true;
+            isCastingFill = true;
             if (colorDialogFill.ShowDialog() == DialogResult.OK)
             {
                 colorFill_btn.BackColor = colorDialogFill.Color;
@@ -325,7 +253,7 @@ namespace graphic_editor
         }
         private void ColorPen_btn_Click(object sender, EventArgs e) //Граница
         {
-            isCasting = true;
+            isCastingBorder = true;
             if (colorDialogPen.ShowDialog() == DialogResult.OK)
             {
                 colorPen_btn.BackColor = colorDialogPen.Color;
@@ -333,7 +261,7 @@ namespace graphic_editor
         }
         private void trackBar1_Scroll(object sender, EventArgs e) //Фон
         {
-            isCasting = true;
+            isCastingBorder = true;
         }
 
     }
