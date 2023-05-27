@@ -7,8 +7,8 @@ using System.Drawing;
 
 namespace Rainbow
 {
-    internal interface ISortable
+    internal interface ISortable : IComparable
     {
-        Color GetColor(int min, int max);
+        Color GetColor(ISortable min, ISortable max);
     }
 }

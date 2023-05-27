@@ -32,6 +32,10 @@
             this.btn_sort = new System.Windows.Forms.Button();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
@@ -48,7 +52,7 @@
             // 
             // btn_sort
             // 
-            this.btn_sort.Location = new System.Drawing.Point(596, 171);
+            this.btn_sort.Location = new System.Drawing.Point(917, 171);
             this.btn_sort.Name = "btn_sort";
             this.btn_sort.Size = new System.Drawing.Size(192, 105);
             this.btn_sort.TabIndex = 1;
@@ -59,15 +63,20 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(203, 252);
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            800,
+            0,
+            0,
+            -2147483648});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown1.TabIndex = 2;
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(470, 254);
+            this.numericUpDown2.Location = new System.Drawing.Point(791, 252);
             this.numericUpDown2.Maximum = new decimal(new int[] {
-            1000,
+            800,
             0,
             0,
             0});
@@ -75,17 +84,61 @@
             this.numericUpDown2.Size = new System.Drawing.Size(120, 22);
             this.numericUpDown2.TabIndex = 3;
             this.numericUpDown2.Value = new decimal(new int[] {
-            100,
+            50,
             0,
             0,
             0});
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(203, 230);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 16);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "min";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(883, 230);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(32, 16);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "max";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label3.Location = new System.Drawing.Point(511, 195);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(118, 18);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Тип сортировки";
+            // 
+            // domainUpDown1
+            // 
+            this.domainUpDown1.Items.Add("Пузырек");
+            this.domainUpDown1.Items.Add("Шейкер");
+            this.domainUpDown1.Items.Add("Выборка");
+            this.domainUpDown1.Items.Add("Вставка");
+            this.domainUpDown1.Location = new System.Drawing.Point(509, 216);
+            this.domainUpDown1.Name = "domainUpDown1";
+            this.domainUpDown1.Size = new System.Drawing.Size(120, 22);
+            this.domainUpDown1.TabIndex = 7;
+            this.domainUpDown1.Text = "Сортировка";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1544, 286);
+            this.ClientSize = new System.Drawing.Size(1121, 286);
+            this.Controls.Add(this.domainUpDown1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.numericUpDown2);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.btn_sort);
@@ -97,6 +150,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -107,6 +161,10 @@
         private System.Windows.Forms.Button btn_sort;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DomainUpDown domainUpDown1;
     }
 }
 

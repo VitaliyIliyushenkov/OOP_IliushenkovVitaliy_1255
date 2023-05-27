@@ -10,15 +10,21 @@ namespace Rainbow
     internal class MyIntsCreator
     {
         static Random rand = new Random();
-        List<MyInt> objects = new List<MyInt>();
+        List<ISortable> objects = new List<ISortable>();
         List<int> ints = new List<int>();
 
-        public List<MyInt> CreateMyInts(int min, int max)
+        public List<ISortable> CreateMyInts(int min, int max)
         {
-            ints = Enumerable.Range(min,max-min).OrderBy(i => rand.Next()).ToList();
+            objects.Clear();
+            ints = Enumerable.Range(min,max-min+1).OrderBy(i => rand.Next()).ToList();
             for (int k = 0; k < ints.Count; k++)
             {
-                objects.Add(new MyInt(ints[k]));
+                MyInt myint = new MyInt
+                {
+                    VALUE = ints[k]
+                };
+
+                objects.Add(myint);
             }
             return objects;
         }

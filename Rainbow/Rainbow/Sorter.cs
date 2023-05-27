@@ -8,50 +8,14 @@ using System.Windows.Forms;
 
 namespace Rainbow
 {
-    internal class Sorter
+    internal abstract class Sorter
     {
-        int min, max;
-        List<MyInt> objects;
-
-        int MIN
+        public List<ISortable> OBJECTS = new List<ISortable>();
+        public int WIDTH
         {
-            get { return min; }
-            set { min = value; }
+            get { return Form1.WIDTH_SCREEN / OBJECTS.Count(); }
+            set {; }
         }
-        int MAX
-        {
-            get { return max; }
-            set { max = value; }
-        }
-        public Sorter(int min, int max, List<MyInt> objects)
-        {
-            MIN = min;
-            MAX = max;
-            this.objects = objects;
-        }
-
-        public void Sort()
-        {
-            for (int i = 0; i < objects.Count-1; i++)
-            {
-                for (int j = 0; j < objects.Count-i-1; j++)
-                {
-                    if (objects[j].CompareTo(objects[j + 1]) < 0 )
-                    {
-                        (objects[j + 1], objects[j]) = (objects[j], objects[j + 1]);
-                    }
-                }
-            }
-        }
-        public void Draw(Graphics gr)
-        {
-            int width = Form1.WIDTH_SCREEN / objects.Count();
-            int i = 0;
-            foreach (MyInt obj in objects)
-            {
-                gr.FillRectangle(new SolidBrush(obj.GetColor(MIN,MAX)), i * width, 10, width, 100);
-                i++;
-            }
-        }
+        public virtual void Sort_and_Draw(Graphics gr) { }
     }
 }
