@@ -24,22 +24,43 @@ namespace CalculateIron
         }
         public Rational(int n, int d)
         {
-            Numerator = n; Denominator = d; 
+            Numerator = n; Denominator = d;
+            Evclid_Metod();
         }
-        public Rational Euclids()
+        public static Rational operator + (Rational r1, Rational r2)
+        {
+            return new Rational(r1.Numerator * r2.Denominator + r2.Numerator * r1.Denominator,
+                r1.Denominator*r2.Denominator);
+        }
+        public static Rational operator -(Rational r1, Rational r2)
+        {
+            return new Rational(r1.Numerator * r2.Denominator - r2.Numerator * r1.Denominator,
+                r1.Denominator * r2.Denominator);
+        }
+        public static Rational operator *(Rational r1, Rational r2)
+        {
+            return new Rational(r1.Numerator * r2.Numerator,
+                r1.Denominator * r2.Denominator);
+        }
+        public static Rational operator /(Rational r1, Rational r2)
+        {
+            return new Rational(r1.Numerator * r2.Denominator,
+                r1.Denominator * r2.Numerator);
+        }
+        private void Evclid_Metod()
         {
             int max;
             int min;
             int ost;
             do
             {
-                if (numerator > denominator)
+                if (Numerator > Denominator)
                 {
-                    max = numerator; min = denominator;
+                    max = Numerator; min = Denominator;
                 }
                 else
                 {
-                    max = denominator; min = numerator;
+                    max = Denominator; min = Numerator;
 
                 }
 
@@ -58,39 +79,10 @@ namespace CalculateIron
                         ost2 = p % ost2;
                     }
                 }
-                numerator /= ost;
-                denominator /= ost;
+                Numerator /= ost;
+                Denominator /= ost;
             }
             while (ost != 1);
-            return new Rational(numerator, denominator);
-        }
-        public Rational Plus(Rational r2)
-        {
-            int n = numerator * r2.denominator + r2.numerator * denominator;
-            int d = denominator *r2.denominator;
-            return new Rational(n, d);
-        }
-        public Rational Minus(Rational r2)
-        {
-            int n = numerator * r2.denominator - r2.numerator * denominator;
-            int d = denominator *r2.denominator;
-            return new Rational(n, d);
-        }
-        public Rational Multiply(Rational r2)
-        {
-            int n = numerator * r2.numerator;
-            int d = denominator * r2.denominator;
-            return new Rational(n, d);
-        }
-        public Rational Division(Rational r2)
-        {
-            int n = numerator * r2.denominator;
-            int d = denominator * r2.numerator;
-            return new Rational(n, d);
-        }
-        public override string ToString()
-        {
-            return numerator + "/" + denominator;
         }
     }
 }
