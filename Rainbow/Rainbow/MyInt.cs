@@ -25,37 +25,22 @@ namespace Rainbow
 
         public Color GetColor(ISortable min, ISortable max)
         {
-            Color color = new Color();
-
             int MIN = ((MyInt)min).VALUE;
             int MAX = ((MyInt)max).VALUE;
 
             int D = (MAX - MIN) / 5;
 
-            int R = 255;
-            int G = 0;
-            int B = 0;
-
-            for (int j = 0; j < (MAX - MIN+1); j += D)
-            {
-                for (int i = 0; i < D; i++)
-                {
-                    if (j == D * 0)
-                        G += (255 / D);
-                    else if (j == D * 1)
-                        R -= (255 / D);
-                    else if (j == D * 2)
-                        B += (255 / D);
-                    else if (j == D * 3)
-                        G -= (255 / D);
-                    else if (j == D * 4)
-                            R += (255 / D);
-
-                    if (j + i + MIN == VALUE)
-                        color =  Color.FromArgb(R, G, B);
-                }
-            }
-            return color;
+            if (VALUE <= MIN + D)
+                return Color.FromArgb(255, 0 + 255 * (VALUE - MIN) / D, 0);
+            if (VALUE > MIN + D & VALUE <= MIN + 2 * D)
+                return Color.FromArgb(255 - (255 * ((VALUE - MIN) - D)) / D, 255, 0);
+            if (VALUE > MIN + 2 * D & VALUE <= MIN + 3 * D)
+                return Color.FromArgb(0, 255, 0 + (255 * ((VALUE - MIN) - 2 * D)) / D);
+            if (VALUE > MIN + 3 * D & VALUE <= MIN + 4 * D)
+                return Color.FromArgb(0, 255 - (255 * ((VALUE - MIN) - 3 * D)) / D, 255);
+            if (VALUE > MIN + 4 * D & VALUE <= MIN + 5 * D)
+                return Color.FromArgb(0 + (255 * ((VALUE - MIN) - 4 * D)) / D, 0, 255);
+            return Color.FromArgb(255, 0, 255);
         }
     }
 }
